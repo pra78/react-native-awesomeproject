@@ -1,19 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-  Platform,
-  Keyboard,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Dimensions,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { useTogglePasswordVisibility } from "./hooks/useTogglePasswordVisibility";
@@ -21,17 +7,8 @@ import Svg, { Path, Rect, G } from "react-native-svg";
 
 SplashScreen.preventAutoHideAsync();
 
-const initialState = {
-  email: "",
-  password: "",
-};
-
 export default function App() {
   const [isReady, setIsReady] = useState(false);
-  const { passwordHidden, handlePasswordVisibility } =
-    useTogglePasswordVisibility();
-  const [shouldShowKeyboard, setShouldShowKeyboard] = useState(false);
-  const [state, setstate] = useState(initialState);
   const [dimensions, setdimensions] = useState(Dimensions.get("window").width);
 
   useEffect(() => {
@@ -70,13 +47,6 @@ export default function App() {
   if (!isReady) {
     return null;
   }
-
-  const keyboardHide = () => {
-    setShouldShowKeyboard(false);
-    Keyboard.dismiss();
-    // console.log(state);
-    setstate(initialState);
-  };
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
