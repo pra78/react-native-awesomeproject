@@ -17,12 +17,11 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { useTogglePasswordVisibility } from "./hooks/useTogglePasswordVisibility";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Path, Rect, G } from "react-native-svg";
 
 SplashScreen.preventAutoHideAsync();
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
@@ -80,108 +79,169 @@ export default function App() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View
-        style={{ ...styles.container, width: dimensions }}
-        onLayout={onLayoutRootView}
-      >
-        <ImageBackground
-          style={styles.image}
-          source={require("./assets/images/PhotoBG.jpg")}
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <View style={styles.header}>
+        <Text style={[styles.headerText, { transform: [{ translateX: -50 }] }]}>
+          Публікації
+        </Text>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#E8E8E8" : "white",
+            },
+            styles.svgLogout,
+          ]}
         >
-          <View style={styles.emptyView} />
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.keyboardAvoidingView}
+          <Svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <View
-              // style={styles.form}
-              style={{ ...styles.form, bottom: shouldShowKeyboard ? 50 : 0 }}
-            >
-              <Image
-                style={[styles.userPic, { transform: [{ translateX: -60 }] }]}
-                source={{ uri: "/assets/images/noUser.png" }}
-              />
-              <View
-                style={[styles.addUser, { transform: [{ translateX: 48 }] }]}
-              >
-                <Svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Circle
-                    cx="12.5"
-                    cy="12.5"
-                    r="12"
-                    fill="white"
-                    stroke="#FF6C00"
-                  />
-                  <Path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M13 6H12V12H6V13H12V19H13V13H19V12H13V6Z"
-                    fill="#FF6C00"
-                  />
-                </Svg>
-              </View>
-              <Text style={styles.header}>Реєстрація</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Логін"
-                value={state.login}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({ ...prevState, login: value }))
-                }
-                onFocus={() => setShouldShowKeyboard(true)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Адреса електронної пошти"
-                value={state.email}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({ ...prevState, email: value }))
-                }
-                onFocus={() => setShouldShowKeyboard(true)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Пароль"
-                secureTextEntry={passwordHidden}
-                value={state.password}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({ ...prevState, password: value }))
-                }
-                onFocus={() => setShouldShowKeyboard(true)}
-              />
-              <Pressable
-                onPress={handlePasswordVisibility}
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? "white" : "#E8E8E8",
-                  },
-                  styles.showPasswordBtn,
-                ]}
-              >
-                <Text>Показати</Text>
-              </Pressable>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={keyboardHide}
-              >
-                <Text style={styles.btnTitle}>Зареєструватись</Text>
-              </TouchableOpacity>
-              <Text style={styles.accountLink}>
-                У вас вже є аккаунт? Ввійти
-              </Text>
-            </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
+            <Path
+              d="M10 22H5C3.89543 22 3 21.1046 3 20V4C3 2.89543 3.89543 2 5 2H10"
+              stroke="#BDBDBD"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              d="M17 16L21 12L17 8"
+              stroke="#BDBDBD"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              d="M21 12H9"
+              stroke="#BDBDBD"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </Svg>
+        </Pressable>
       </View>
-    </TouchableWithoutFeedback>
+      <View style={styles.list}></View>
+      <View style={styles.footer}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#E8E8E8" : "white",
+            },
+            styles.svgFooter,
+          ]}
+        >
+          <Svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <Rect
+              width="24"
+              height="24"
+              transform="translate(8 8)"
+              fill="white"
+            />
+            <Path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11 11H18V18H11V11Z"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M22 11H29V18H22V11Z"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M22 22H29V29H22V22Z"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11 22H18V29H11V22Z"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </Svg>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#E8E8E8" : "white",
+            },
+            styles.svgFooter,
+          ]}
+        >
+          <Svg
+            width="70"
+            height="40"
+            viewBox="0 0 70 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <G clip-path="url(#clip0_12_109)">
+              <Rect width="70" height="40" rx="20" fill="#FF6C00" />
+              <Path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M35.5 13.5H34.5V19.5H28.5V20.5H34.5V26.5H35.5V20.5H41.5V19.5H35.5V13.5Z"
+                fill="white"
+              />
+            </G>
+          </Svg>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#E8E8E8" : "white",
+            },
+            styles.svgFooter,
+          ]}
+        >
+          <Svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <Path
+              d="M28 29V27C28 24.7909 26.2091 23 24 23H16C13.7909 23 12 24.7909 12 27V29"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <Path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M20 19C22.2091 19 24 17.2091 24 15C24 12.7909 22.2091 11 20 11C17.7909 11 16 12.7909 16 15C16 17.2091 17.7909 19 20 19Z"
+              stroke="#212121"
+              stroke-opacity="0.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </Svg>
+        </Pressable>
+      </View>
+    </View>
   );
 }
 
@@ -189,102 +249,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    flexDirection: "column",
-  },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-  },
-  add: {
-    backgroundColor: "#FF6C00",
-  },
-  emptyView: {
-    backgroundColor: "transparent",
-    flex: 3,
-  },
-  keyboardAvoidingView: {
-    flex: 4,
-  },
-  userPic: {
-    position: "absolute",
-    top: -60,
-    left: "50%",
-    width: 120,
-    height: 120,
-    borderRadius: 16,
-    backgroundColor: "#E8E8E8",
-  },
-  addUser: {
-    position: "absolute",
-    top: 21,
-    left: "50%",
-  },
-  form: {
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
   },
   header: {
-    marginTop: 92,
-    marginBottom: 33,
-    textAlign: "center",
-    fontFamily: "Roboto-500",
-    fontSize: 30,
+    flex: 0.1,
+    borderBottomColor: "#E5E5E5",
+    borderBottomWidth: 1,
   },
-  input: {
-    height: 50,
-    marginLeft: 16,
-    marginRight: 16,
-    backgroundColor: "#E8E8E8",
-    marginBottom: 16,
-    borderRadius: 8,
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingBottom: 15,
-    paddingRight: 16,
-    fontFamily: "Roboto-400",
-    fontSize: 16,
-  },
-  showPasswordBtn: {
+  headerText: {
     position: "absolute",
-    bottom: 202,
-    right: 32,
-    color: "#1B4371",
-    fontFamily: "Roboto-400",
-    fontSize: 16,
-    borderRadius: 8,
-    padding: 6,
-  },
-  btn: {
-    borderRadius: 100,
-    borderWidth: 1,
-    marginTop: 43,
-    marginBottom: 16,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 20,
-    // ...Platform.select({
-    // ios: {
-    backgroundColor: "#FF6C00",
-    borderColor: "#FF6C00",
-    // },
-    // android: {
-    // backgroundColor: "#FF6C00",
-    // borderColor: "#FF6C00",
-    // },
-    // }),
-  },
-  btnTitle: {
-    color: "#FFFFFF", //Platform.OS === "ios" ? "#FFFFFF" : "#f0f8ff",
-    fontSize: 16,
-    fontFamily: "Roboto-400",
-    padding: 16,
-  },
-  accountLink: {
-    fontFamily: "Roboto-400",
-    fontSize: 16,
-    color: "#1B4371",
+    color: "#212121",
+    fontFamily: "Roboto-500",
+    fontSize: 17,
     textAlign: "center",
-    marginBottom: 45,
+    bottom: 0,
+    left: "50%",
+    padding: 11,
+  },
+  svgLogout: {
+    position: "absolute",
+    bottom: 10,
+    right: 16,
+  },
+  list: {
+    flex: 0.8,
+  },
+  footer: {
+    flex: 0.1,
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingTop: 9,
+    gap: 31,
+    borderTopColor: "#E5E5E5",
+    borderTopWidth: 1,
+  },
+  svgFooter: {
+    height: 40,
+    borderRadius: 8,
   },
 });
