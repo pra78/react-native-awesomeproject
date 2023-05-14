@@ -6,7 +6,7 @@ import Svg, { Path, Rect, G } from "react-native-svg";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+export default function Posts() {
   const [isReady, setIsReady] = useState(false);
 
   const [dimensions, setdimensions] = useState(Dimensions.get("window").width);

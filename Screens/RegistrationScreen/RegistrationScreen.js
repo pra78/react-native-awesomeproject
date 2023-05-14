@@ -27,7 +27,7 @@ const initialState = {
   password: "",
 };
 
-export default function App() {
+export default function Registration() {
   const [isReady, setIsReady] = useState(false);
   const { passwordHidden, handlePasswordVisibility } =
     useTogglePasswordVisibility();
