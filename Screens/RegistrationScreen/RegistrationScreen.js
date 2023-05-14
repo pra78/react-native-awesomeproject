@@ -75,7 +75,7 @@ export default function App() {
   const keyboardHide = () => {
     setShouldShowKeyboard(false);
     Keyboard.dismiss();
-    // console.log(state);
+    console.log(state);
     setstate(initialState);
   };
 
