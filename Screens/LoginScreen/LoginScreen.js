@@ -91,7 +91,9 @@ export default function Login() {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.keyboardAvoidingView}
           >
-            <View style={styles.form}>
+            <View
+              style={{ ...styles.form, bottom: shouldShowKeyboard ? 100 : 0 }}
+            >
               <Text style={styles.header}>Вхід</Text>
               <TextInput
                 style={styles.input}

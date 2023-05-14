@@ -96,11 +96,11 @@ export default function Registration() {
           >
             <View
               // style={styles.form}
-              style={{ ...styles.form, bottom: shouldShowKeyboard ? 50 : 0 }}
+              style={{ ...styles.form, bottom: shouldShowKeyboard ? 100 : 0 }}
             >
               <Image
                 style={[styles.userPic, { transform: [{ translateX: -60 }] }]}
-                source={{ uri: "../../assets/images/noUser.png" }}
+                source={{ uri: "/assets/images/noUser.png" }}
               />
               <View
                 style={[styles.addUser, { transform: [{ translateX: 48 }] }]}
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   keyboardAvoidingView: {
-    flex: 4,
+    flex: 5,
   },
   userPic: {
     position: "absolute",
