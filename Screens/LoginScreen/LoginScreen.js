@@ -16,6 +16,7 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
+import { useNavigation } from "@react-navigation/native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,6 +32,7 @@ export default function Login() {
   const [shouldShowKeyboard, setShouldShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [dimensions, setdimensions] = useState(Dimensions.get("window").width);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const onChange = () => {
@@ -132,9 +134,11 @@ export default function Login() {
               >
                 <Text style={styles.btnTitle}>Вхід</Text>
               </TouchableOpacity>
-              <Text style={styles.accountLink}>
-                Немає аккаунта? Зареєструватись
-              </Text>
+              <Pressable onPress={() => navigation.navigate("Реєстрація")}>
+                <Text style={styles.accountLink}>
+                  Немає аккаунта? Зареєструватись
+                </Text>
+              </Pressable>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
